@@ -1,0 +1,43 @@
+buildscript {
+
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.1.1"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.0"
+    }
+
+}
+
+plugins {
+    id "io.gitlab.arturbosch.detekt" version "1.15.0"
+}
+
+dependencies {
+    detektPlugins project(':custom_detekt')
+}
+
+detekt {
+    version = "1.15.0"
+    input = files(".")
+    config = files("default-detekt-config.yml")
+}
+
+tasks.withType(io.gitlab.arturbosch.detekt.Detekt) {
+    exclude(".*/resources/.*,.*/build/.*")
+    dependsOn(":custom_detekt:assemble")
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
