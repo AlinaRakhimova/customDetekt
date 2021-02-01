@@ -15,6 +15,10 @@ processors:
   # - 'PackageCountProcessor'
   # - 'KtFileCountProcessor'
 
+config:
+    validation: true
+    excludes: 'custom-ruleset.*'
+
 console-reports:
   active: true
   exclude:
